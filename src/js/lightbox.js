@@ -9,8 +9,15 @@
  * Released under the MIT license
  * https://github.com/lokesh/lightbox2/blob/master/LICENSE
  *
+ * Modified by Abdo for Anki <github.com/abdnh>
+ *
  * @preserve
  */
+
+// Transform all images on question/answer sides
+for (const img of document.querySelectorAll("#qa img")) {
+  img.outerHTML = `<a data-lightbox="lightbox" href="${img.src}">${img.outerHTML}</a>`;
+}
 
 // Uses Node, AMD or browser globals to create a module.
 (function (root, factory) {
