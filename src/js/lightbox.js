@@ -50,10 +50,10 @@ for (const img of document.querySelectorAll("#qa img")) {
   Lightbox.defaults = {
     albumLabel: 'Image %1 of %2',
     alwaysShowNavOnTouchDevices: false,
-    fadeDuration: 600,
-    imageFadeDuration: 600,
+    fadeDuration: 0,
+    imageFadeDuration: 0,
     positionFromTop: 50,
-    resizeDuration: 700,
+    resizeDuration: 0,
     showImageNumberLabel: true,
     wrapAround: false,
     disableScrolling: false,
