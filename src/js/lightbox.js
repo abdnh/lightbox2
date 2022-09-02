@@ -54,7 +54,7 @@ for (const img of document.querySelectorAll("#qa img")) {
     imageFadeDuration: 0,
     positionFromTop: 50,
     resizeDuration: 0,
-    showImageNumberLabel: true,
+    showImageNumberLabel: false,
     wrapAround: false,
     disableScrolling: false,
     /*
