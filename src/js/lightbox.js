@@ -115,7 +115,7 @@ for (const img of document.querySelectorAll("#qa img")) {
     // on the page below.
     //
     // Github issue: https://github.com/lokesh/lightbox2/issues/663
-    $('<div id="lightboxOverlay" tabindex="-1" class="lightboxOverlay tappable"></div><div id="lightbox" tabindex="-1" class="lightbox"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt=""/><div class="lb-nav"><a class="lb-prev" aria-label="Previous image" href="" ></a><a class="lb-next" aria-label="Next image" href="" ></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div>').appendTo($('body'));
+    $('<div id="lightboxOverlay" tabindex="-1" class="lightboxOverlay tappable"></div><div id="lightbox" tabindex="-1" class="lightbox"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt=""/><div class="lb-nav"><a class="lb-prev" aria-label="Previous image" href="" ></a><a class="lb-next" aria-label="Next image" href="" ></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div></div></div></div>').appendTo($('body'));
 
     // Cache jQuery objects
     this.$lightbox       = $('#lightbox');
@@ -202,11 +202,6 @@ for (const img of document.querySelectorAll("#qa img")) {
       }
     });
 
-
-    this.$lightbox.find('.lb-loader, .lb-close').on('click', function() {
-      self.end();
-      return false;
-    });
   };
 
   // Show overlay and lightbox. If the image is part of a set, add siblings to album array.
@@ -285,9 +280,7 @@ for (const img of document.querySelectorAll("#qa img")) {
 
     // Show loading state
     this.$overlay.fadeIn(this.options.fadeDuration);
-    $('.lb-loader').fadeIn('slow');
     this.$lightbox.find('.lb-image, .lb-nav, .lb-prev, .lb-next, .lb-dataContainer, .lb-numbers, .lb-caption').hide();
-    this.$outerContainer.addClass('animating');
 
     // When image to show is preloaded, we send the width and height to sizeContainer()
     var preloader = new Image();
@@ -394,7 +387,6 @@ for (const img of document.querySelectorAll("#qa img")) {
 
   // Display the image and its details and begin preload neighboring images.
   Lightbox.prototype.showImage = function() {
-    this.$lightbox.find('.lb-loader').stop(true).hide();
     this.$lightbox.find('.lb-image').fadeIn(this.options.imageFadeDuration);
 
     this.updateNav();
@@ -462,8 +454,6 @@ for (const img of document.querySelectorAll("#qa img")) {
     } else {
       this.$lightbox.find('.lb-number').hide();
     }
-
-    this.$outerContainer.removeClass('animating');
 
     this.$lightbox.find('.lb-dataContainer').fadeIn(this.options.resizeDuration, function() {
       return self.sizeOverlay();
