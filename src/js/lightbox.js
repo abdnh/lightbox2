@@ -52,6 +52,9 @@ for (const img of document.querySelectorAll("#qa img")) {
     alwaysShowNavOnTouchDevices: false,
     fadeDuration: 0,
     imageFadeDuration: 0,
+    fitImagesInViewport: true,
+    // maxWidth: 800,
+    // maxHeight: 600,
     positionFromTop: 50,
     resizeDuration: 0,
     showImageNumberLabel: false,
@@ -320,12 +323,37 @@ for (const img of document.querySelectorAll("#qa img")) {
         $image.height(maxImageHeight);
       }
 
-      // Set image width to 80% of the window width while preserving aspect ratio
-      maxImageHeight = maxImageWidth * (preloader.height / preloader.width) * 0.8;
-      maxImageWidth = maxImageWidth * 0.8;
-      $image.width(maxImageWidth);
-      $image.height(maxImageHeight);
+      // Fit image inside the viewport.
+      if (self.options.fitImagesInViewport) {
 
+        // Check if image size is larger then maxWidth|maxHeight in settings
+        if (self.options.maxWidth && self.options.maxWidth < maxImageWidth) {
+          maxImageWidth = self.options.maxWidth;
+        }
+        if (self.options.maxHeight && self.options.maxHeight < maxImageHeight) {
+          maxImageHeight = self.options.maxHeight;
+        }
+
+      } else {
+        maxImageWidth = self.options.maxWidth || preloader.width || maxImageWidth;
+        maxImageHeight = self.options.maxHeight || preloader.height || maxImageHeight;
+      }
+
+      // Is the current image's width or height is greater than the maxImageWidth or maxImageHeight
+      // option than we need to size down while maintaining the aspect ratio.
+      if ((preloader.width > maxImageWidth) || (preloader.height > maxImageHeight)) {
+        if ((preloader.width / maxImageWidth) > (preloader.height / maxImageHeight)) {
+          imageWidth  = maxImageWidth;
+          imageHeight = parseInt(preloader.height / (preloader.width / imageWidth), 10);
+          $image.width(imageWidth);
+          $image.height(imageHeight);
+        } else {
+          imageHeight = maxImageHeight;
+          imageWidth = parseInt(preloader.width / (preloader.height / imageHeight), 10);
+          $image.width(imageWidth);
+          $image.height(imageHeight);
+        }
+      }
       self.sizeContainer($image.width(), $image.height());
     };
 
