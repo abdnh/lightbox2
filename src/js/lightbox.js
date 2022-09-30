@@ -362,6 +362,9 @@ for (const img of document.querySelectorAll("#qa img")) {
     var newWidth  = imageWidth + this.containerPadding.left + this.containerPadding.right + this.imageBorderWidth.left + this.imageBorderWidth.right;
     var newHeight = imageHeight + this.containerPadding.top + this.containerPadding.bottom + this.imageBorderWidth.top + this.imageBorderWidth.bottom;
 
+    // Save vertical scroll position and restore it later
+    // Works around an issue where the page scrolls to the top automatically after the image is displayed in some cases
+    var scrollPos = $(window).scrollTop();
     function postResize() {
       self.$lightbox.find('.lb-dataContainer').width(newWidth);
       self.$lightbox.find('.lb-prevLink').height(newHeight);
@@ -371,6 +374,7 @@ for (const img of document.querySelectorAll("#qa img")) {
       self.$overlay.focus();
 
       self.showImage();
+      window.scrollTo(0, scrollPos);
     }
 
     if (oldWidth !== newWidth || oldHeight !== newHeight) {
