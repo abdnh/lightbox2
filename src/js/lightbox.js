@@ -55,7 +55,6 @@ for (const img of document.querySelectorAll("#qa img")) {
     fitImagesInViewport: true,
     // maxWidth: 800,
     // maxHeight: 600,
-    positionFromTop: 50,
     resizeDuration: 0,
     showImageNumberLabel: false,
     wrapAround: false,
@@ -256,11 +255,11 @@ for (const img of document.querySelectorAll("#qa img")) {
     }
 
     // Position Lightbox
-    var top  = $window.scrollTop() + this.options.positionFromTop;
     var left = $window.scrollLeft();
     this.$lightbox.css({
-      top: top + 'px',
-      left: left + 'px'
+      top: `calc(${$window.scrollTop()}px + 50%)`,
+      left: left + 'px',
+      transform: 'translateY(-50%)',
     }).fadeIn(this.options.fadeDuration);
 
     // Disable scrolling of the page while open
@@ -311,7 +310,7 @@ for (const img of document.querySelectorAll("#qa img")) {
       // Calculate the max image dimensions for the current viewport.
       // Take into account the border around the image and an additional 10px gutter on each side.
       maxImageWidth  = windowWidth - self.containerPadding.left - self.containerPadding.right - self.imageBorderWidth.left - self.imageBorderWidth.right - 20;
-      maxImageHeight = windowHeight - self.containerPadding.top - self.containerPadding.bottom - self.imageBorderWidth.top - self.imageBorderWidth.bottom - self.options.positionFromTop - 70;
+      maxImageHeight = windowHeight - self.containerPadding.top - self.containerPadding.bottom - self.imageBorderWidth.top - self.imageBorderWidth.bottom - 70;
 
       /*
       Since many SVGs have small intrinsic dimensions, but they support scaling
