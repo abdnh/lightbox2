@@ -55,6 +55,7 @@ for (const img of document.querySelectorAll("#qa img")) {
     fitImagesInViewport: true,
     // maxWidth: 800,
     // maxHeight: 600,
+    maximizeSize: true,
     resizeDuration: 0,
     showImageNumberLabel: false,
     wrapAround: false,
@@ -340,7 +341,7 @@ for (const img of document.querySelectorAll("#qa img")) {
 
       // Is the current image's width or height is greater than the maxImageWidth or maxImageHeight
       // option than we need to size down while maintaining the aspect ratio.
-      if ((preloader.width > maxImageWidth) || (preloader.height > maxImageHeight)) {
+      if ((preloader.width > maxImageWidth) || (preloader.height > maxImageHeight) || self.options.maximizeSize) {
         if ((preloader.width / maxImageWidth) > (preloader.height / maxImageHeight)) {
           imageWidth  = maxImageWidth;
           imageHeight = parseInt(preloader.height / (preloader.width / imageWidth), 10);
