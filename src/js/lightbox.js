@@ -55,6 +55,8 @@ for (const img of document.querySelectorAll("#qa img")) {
     fitImagesInViewport: true,
     // maxWidth: 800,
     // maxHeight: 600,
+    positionFromTop: 50,
+    verticallyCenter: false,
     maximizeSize: true,
     resizeDuration: 0,
     showImageNumberLabel: false,
@@ -257,11 +259,18 @@ for (const img of document.querySelectorAll("#qa img")) {
 
     // Position Lightbox
     var left = $window.scrollLeft();
-    this.$lightbox.css({
-      top: `calc(${$window.scrollTop()}px + 50%)`,
-      left: left + 'px',
-      transform: 'translateY(-50%)',
-    }).fadeIn(this.options.fadeDuration);
+    if (this.options.verticallyCenter) {
+      this.$lightbox.css({
+        top: `calc(${$window.scrollTop() + this.options.positionFromTop}px + 50%)`,
+        left: left + 'px',
+        transform: 'translateY(-50%)',
+      }).fadeIn(this.options.fadeDuration);
+    } else {
+      this.$lightbox.css({
+        top: $window.scrollTop() + this.options.positionFromTop + 'px',
+        left: left + 'px',
+      }).fadeIn(this.options.fadeDuration);
+    }
 
     // Disable scrolling of the page while open
     if (this.options.disableScrolling) {
@@ -310,8 +319,8 @@ for (const img of document.querySelectorAll("#qa img")) {
 
       // Calculate the max image dimensions for the current viewport.
       // Take into account the border around the image and an additional 10px gutter on each side.
-      maxImageWidth  = windowWidth - self.containerPadding.left - self.containerPadding.right - self.imageBorderWidth.left - self.imageBorderWidth.right - 20;
-      maxImageHeight = windowHeight - self.containerPadding.top - self.containerPadding.bottom - self.imageBorderWidth.top - self.imageBorderWidth.bottom - 70;
+      maxImageWidth = windowWidth - self.containerPadding.left - self.containerPadding.right - self.imageBorderWidth.left - self.imageBorderWidth.right - 20;
+      maxImageHeight = windowHeight - self.containerPadding.top - self.containerPadding.bottom - self.imageBorderWidth.top - self.imageBorderWidth.bottom - self.options.positionFromTop - 70;
 
       /*
       Since many SVGs have small intrinsic dimensions, but they support scaling
