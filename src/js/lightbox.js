@@ -54,8 +54,8 @@ for (const img of document.querySelectorAll("#qa img")) {
     fitImagesInViewport: true,
     // maxWidth: 800,
     // maxHeight: 600,
-    positionFromTop: 50,
-    verticallyCenter: false,
+    positionFromTop: 0,
+    verticallyCenter: true,
     maximizeSize: true,
     resizeDuration: 0,
     showImageNumberLabel: false,
@@ -271,10 +271,10 @@ for (const img of document.querySelectorAll("#qa img")) {
     // Position Lightbox
     var left = $window.scrollLeft();
     if (this.options.verticallyCenter) {
+
       this.$lightbox
         .css({
-          top: `calc(${$window.scrollTop() + this.options.positionFromTop
-            }px + 50%)`,
+          top: $window.scrollTop() + this.options.positionFromTop + $(window).height() / 2 + "px",
           left: left + "px",
           transform: "translateY(-50%)",
         })
